@@ -40,10 +40,11 @@ public class ResumeController {
         // 스킬 저장
         skillRepository.save(requestDTO.getSkills(),resumeId);
 
-        List<Skill> skillList = skillRepository.findAllSkill(resumeId);
-        if (skillList != null) {
-            request.setAttribute("skillList",skillList);
-        }
+        //여기서는 도저히 안되네요 ㅋ
+//        List<Skill> skillList = skillRepository.findAllSkill(resumeId);
+//        if (skillList != null) {
+//            request.setAttribute("skillList",skillList);
+//        }
 
 
 
