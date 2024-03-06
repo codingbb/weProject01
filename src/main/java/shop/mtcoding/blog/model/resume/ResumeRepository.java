@@ -48,18 +48,7 @@ public class ResumeRepository {
         Query query1 = em.createNativeQuery(a);
         Integer resumeId= (Integer) query1.getSingleResult();
 
-        List<String> skills = requestDTO.getSkills(); // requestDTO에서 skills 가져오기
-        for(String skill : skills) {
-            String q2 = """
-            INSERT INTO skill_tb(resume_id,name,role)
-                VALUES (?, ?,?)
-            """;
-            Query query2 = em.createNativeQuery(q2);
-            query2.setParameter(1,resumeId); // sessionUser에서 userId 가져오기
-            query2.setParameter(2, skill);
-            query2.setParameter(3,1);
-            query2.executeUpdate();
-        }
+
 
         return resumeId; // resumeId 반환
 

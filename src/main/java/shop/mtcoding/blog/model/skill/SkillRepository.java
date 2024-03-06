@@ -44,16 +44,19 @@ public class SkillRepository {
 
 
     @Transactional
-    public void save(String skill, int resumeId) {
-        String q = """
-                insert into skill_tb (resume_id, jobs_id, name, role) values (?, ?, ?, ?);
-                """;
-        Query query = em.createNativeQuery(q);
-        query.setParameter(1, resumeId);
-        query.setParameter(2, null);
-        query.setParameter(3, skill);
-        query.setParameter(4, 1);
-        query.executeUpdate();
+    public void save(ResumeRequest.WriteDTO requestDTO, int resumeId) {
+        List<String> skills = requestDTO.getSkills(); // requestDTO에서 skills 가져오기
+        for(String skill : skills) {
+            String q = """
+            INSERT INTO skill_tb(resume_id,name,role)
+                VALUES (?, ?,?)
+            """;
+            Query query = em.createNativeQuery(q);
+            query.setParameter(1,resumeId); // sessionUser에서 userId 가져오기
+            query.setParameter(2, skill);
+            query.setParameter(3,1);
+            query.executeUpdate();
+        }
 
     }
 

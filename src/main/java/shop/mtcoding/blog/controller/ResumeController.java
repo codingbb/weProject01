@@ -37,6 +37,7 @@ public class ResumeController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         //resume 이력서 저장
         int resumeId = resumeRepository.save(requestDTO, sessionUser);
+        skillRepository.save(requestDTO,resumeId);
         List<Skill> skillList = skillRepository.findAllSkill(resumeId);
         request.setAttribute("skillList",skillList);
 
