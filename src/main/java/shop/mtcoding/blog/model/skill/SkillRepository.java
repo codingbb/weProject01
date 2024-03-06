@@ -44,8 +44,7 @@ public class SkillRepository {
 
 
     @Transactional
-    public void save(ResumeRequest.WriteDTO requestDTO, int resumeId) {
-        List<String> skills = requestDTO.getSkills(); // requestDTO에서 skills 가져오기
+    public void save(List<String> skills, int resumeId) {
         for(String skill : skills) {
             String q = """
             INSERT INTO skill_tb(resume_id,name,role)

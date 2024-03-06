@@ -35,12 +35,6 @@ public class ResumeRepository {
 
         query.executeUpdate();
 
-//        String a = """
-//                select * from resume_tb where id = (select max(id) from resume_tb);
-//                """;
-//
-//        Query skillQuery = em.createNativeQuery(a, Resume.class);
-//        Resume resume = (Resume) skillQuery.getSingleResult();
 
         String a = """
             select max(id) from resume_tb ;
