@@ -37,13 +37,15 @@ public class ResumeController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         //resume 이력서 저장
         int resumeId = resumeRepository.save(requestDTO, sessionUser);
+        List<Skill> skillList = skillRepository.findAllSkill(resumeId);
+        request.setAttribute("skillList",skillList);
 
-        for (String skill : requestDTO.getSkills()) {
-            skillRepository.save(skill, resumeId);
-        }
+//        for (String skill : requestDTO.getSkills()) {
+//            skillRepository.save(skill, resumeId);
+//        }
 
-        List<Skill> skillList = skillRepository.findAllSkill(skillDTO);
-        request.setAttribute("skillList", skillList);
+//        List<Skill> skillList = skillRepository.findAllSkill(skillDTO);
+//        request.setAttribute("skillList", skillList);
 
 //        List<Skill> skillList = skillRepository.findSkillName(skillDTO);
 //        request.setAttribute("skillList", skillList);
@@ -58,9 +60,13 @@ public class ResumeController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<Resume> resumeList = resumeRepository.findByUserId(sessionUser);
-        System.out.println(resumeList);
 
+
+
+        System.out.println(resumeList);
         request.setAttribute("resumeList", resumeList);
+
+
 
         return "/resume/manageResume";
     }

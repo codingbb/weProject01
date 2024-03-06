@@ -17,7 +17,7 @@ public class ResumeRepository {
     private final EntityManager em;
 
     @Transactional
-    public int save(ResumeRequest.WriteDTO requestDTO, User sessionUser) {
+    public Integer save(ResumeRequest.WriteDTO requestDTO, User sessionUser) {
         String q = """
                 insert into resume_tb (user_id, area, edu, career, introduce, port_link, title, is_public, created_at) 
                 values (?, ?, ?, ?, ?, ?, ?, ?, now())
@@ -35,14 +35,35 @@ public class ResumeRepository {
 
         query.executeUpdate();
 
+//        String a = """
+//                select * from resume_tb where id = (select max(id) from resume_tb);
+//                """;
+//
+//        Query skillQuery = em.createNativeQuery(a, Resume.class);
+//        Resume resume = (Resume) skillQuery.getSingleResult();
+
         String a = """
-                select * from resume_tb where id = (select max(id) from resume_tb); 
-                """;
+            select max(id) from resume_tb ;
+            """;
+        Query query1 = em.createNativeQuery(a);
+        Integer resumeId= (Integer) query1.getSingleResult();
 
-        Query skillQuery = em.createNativeQuery(a, Resume.class);
-        Resume resume = (Resume) skillQuery.getSingleResult();
+        List<String> skills = requestDTO.getSkills(); // requestDTO에서 skills 가져오기
+        for(String skill : skills) {
+            String q2 = """
+            INSERT INTO skill_tb(resume_id,name,role)
+                VALUES (?, ?,?)
+            """;
+            Query query2 = em.createNativeQuery(q2);
+            query2.setParameter(1,resumeId); // sessionUser에서 userId 가져오기
+            query2.setParameter(2, skill);
+            query2.setParameter(3,1);
+            query2.executeUpdate();
+        }
 
-        return resume.getId();
+        return resumeId; // resumeId 반환
+
+
 
     }
 

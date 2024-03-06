@@ -25,7 +25,7 @@ public class ResumeRequest {
         private Boolean isPublic;
         private Timestamp createdAt;
 
-        private List<String> skills = new ArrayList<>();
+        private List<String> skills;
 
         //mustache랑 name 값 맞는지 확인
 

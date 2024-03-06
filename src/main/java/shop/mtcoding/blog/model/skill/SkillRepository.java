@@ -27,16 +27,19 @@ public class SkillRepository {
 //        return query.getResultList();
 //    }
 
-    public List<Skill> findAllSkill(SkillResponse.SkillDTO skillDTO) {
+    public List<Skill> findAllSkill(int resumeId) {
         String q = """
                   select * from skill_tb where resume_id = ?
                   """;
 
         Query query = em.createNativeQuery(q, Skill.class);
-        query.setParameter(1, skillDTO.getResume_id());
-        List<Skill> skills = query.getResultList();
-
-        return skills;
+        query.setParameter(1, resumeId);
+        try {
+            List<Skill> skillList = query.getResultList();
+            return skillList;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 

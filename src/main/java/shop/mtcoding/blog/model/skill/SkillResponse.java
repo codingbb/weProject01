@@ -10,7 +10,7 @@ public class SkillResponse {
     public static class SkillDTO {
         private Integer id;
         private String name;
-        private Integer resume_id;
+        private Integer resumeId;
 
     }
 
