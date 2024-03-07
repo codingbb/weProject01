@@ -48,7 +48,7 @@ public class ResumeController {
 
 
 
-        return "redirect:/resume/manageResume";
+        return "redirect:/resume/"+ sessionUser.getId() +"/manageResume";
     }
 
 
