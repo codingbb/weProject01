@@ -3,6 +3,7 @@ package shop.mtcoding.blog.model.resume;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import shop.mtcoding.blog.model.skill.SkillRequest;
+import shop.mtcoding.blog.model.skill.SkillResponse;
 import shop.mtcoding.blog.model.user.User;
 
 import java.sql.Timestamp;
@@ -34,13 +35,21 @@ public class ResumeRequest {
     @Data
     public static class UserViewDTO{
         private Integer id;
-        private Integer userId;
         private String title;
         private String edu;
         private String area;
-        private String resumeId;
-        private List<SkillRequest.UserskillDTO> skillList = new ArrayList<>();
-        private Integer number;
+        private String career;
+
+
+        public UserViewDTO(Integer id, String title, String edu, String area, String career) {
+            this.id = id;
+            this.title = title;
+            this.edu = edu;
+            this.area = area;
+            this.career = career;
+        }
+
+        private List<SkillResponse.ResumeSkillDTO> skillList;
     }
 
 }
